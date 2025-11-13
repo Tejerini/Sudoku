@@ -49,23 +49,58 @@ num1 = 0;
 			leer_char_fichero(); // '\n'
 			printf("\n");
 		}
-s.totales = s.size * s.size;
+  s.totales = s.size * s.size;
 		cerrar_fichero();
 	}
-printf(" |");
-for(c = 0; c < s.size; c++){
- if(c % s.ssize == 0){
-    printf("|");
- }else{
-   printf(" ");
- }
+  printf(" |");
+  for(c = 0; c < s.size; c++){
+    if(c % s.ssize == 0){
+      printf("|");
+    }else{
+      printf(" ");
+    }
   printf("|");
- printf("%d", c);
-}
- printf("\n");
+  printf("%d", c);
+  }
+  printf("\n");
 
-printf("-+");
-for(c = 0; c < s.size; c++){
- printf("-+");
+  linea_h (int ssize)
+ for(i = 0; i < s.size; i ++); {
+  if(i % s.ssize == 0){
+   linea_h (s.ssize);
+  }
+  printf("%c", car);
+  for(j = 0; j < s.size; j++){
+   if(j % s.ssize == 0){
+    printf("|");
+   }else{
+     printf(" ");
+   }
+   printf("%c, s.sudoku[i][j]);
+  }
+  printf("\nª);
 }
 }
+void linea_h (int ssize) {
+ int i, j;
+   printf("-");
+   for(i = 0; i < s.size; i++){
+     for(j = 0; j < s.size; j = j + 2){
+       printf("+-");
+     }
+    }
+     printf("+\n");
+   }
+char convertir_char (int i) {
+ char 0;
+ if (i < 10){
+  c = i + '0';
+ }else{
+  c = i + '87';
+ } 
+ return c;
+}
+
+ 
+
+
