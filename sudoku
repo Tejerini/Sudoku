@@ -1,7 +1,7 @@
 // Este fichero se le da al alumno
 #include <stdio.h>
 #include "fichero.h"
-#include <math.h>
+#include "math.h"
 
 #define SIZE_NOMBRE_FICHERO	  80
 #define DIM 36
@@ -21,7 +21,6 @@ int main() {
 	char nombre_fichero[SIZE_NOMBRE_FICHERO];
 
 s.ocupadas = 0;
-s.size = 9;
 s.ssize = sqrt(s.size);
 s.libres = 0;
 num1 = 0;
@@ -33,7 +32,7 @@ num1 = 0;
 		printf("ERROR: FICHERO NO ENCONTRADO.\n");
 		printf("PUEDE QUE EL NOMBRE NO SEA EL CORRECTO O QUE ESTE EN OTRO DIRECTORIO.\n");
 	} else {
-		size = leer_int_fichero();
+		s.size = leer_int_fichero();
 		leer_char_fichero(); // '\n'
 
 		printf("Sudoku %dx%d\n\n", s.size, s.size);
@@ -42,7 +41,7 @@ num1 = 0;
 				car = leer_char_fichero();
 				printf("%c ", car);
 			}
-      if (car >= '1' && car <= '9') {
+      if (car >= '1' && car <= s.size) {
         s.ocupadas++;
       } else if (car == ' ') {
         s.libres++;
@@ -55,10 +54,13 @@ s.totales = s.size * s.size;
 	}
 printf(" |");
 for(c = 0; c < s.size; c++){
- printf("%d", c);
- if((c + 1) % 3 == 0){
-  printf("|");
+ if(c % s.ssize == 0){
+    printf("|");
+ }else{
+   printf(" ");
  }
+  printf("|");
+ printf("%d", c);
 }
  printf("\n");
 
