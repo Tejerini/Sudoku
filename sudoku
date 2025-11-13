@@ -1,0 +1,69 @@
+// Este fichero se le da al alumno
+#include <stdio.h>
+#include "fichero.h"
+#include <math.h>
+
+#define SIZE_NOMBRE_FICHERO	  80
+#define DIM 36
+
+typedef struct {
+char sudoku[DIM][DIM]
+int size;
+int ssize;
+int ocupadas;
+int libres;
+int totales;
+}tsudoku;
+
+int main() {
+	int err, f, c, size, car, num1;
+  tsudoku s;
+	char nombre_fichero[SIZE_NOMBRE_FICHERO];
+
+s.ocupadas = 0;
+s.size = 9;
+s.ssize = sqrt(s.size);
+s.libres = 0;
+num1 = 0;
+
+	printf("Introduce el nombre del fichero: ");
+	scanf("%s%*c", nombre_fichero);
+	err = abrir_fichero(nombre_fichero);
+	if (err != ABRIR_FICHERO_OK) {
+		printf("ERROR: FICHERO NO ENCONTRADO.\n");
+		printf("PUEDE QUE EL NOMBRE NO SEA EL CORRECTO O QUE ESTE EN OTRO DIRECTORIO.\n");
+	} else {
+		size = leer_int_fichero();
+		leer_char_fichero(); // '\n'
+
+		printf("Sudoku %dx%d\n\n", s.size, s.size);
+		for (f = 0; f < s.size; f++) {
+			for (c = 0; c < s.size; c++) {
+				car = leer_char_fichero();
+				printf("%c ", car);
+			}
+      if (car >= '1' && car <= '9') {
+        s.ocupadas++;
+      } else if (car == ' ') {
+        s.libres++;
+      }
+			leer_char_fichero(); // '\n'
+			printf("\n");
+		}
+s.totales = s.size * s.size;
+		cerrar_fichero();
+	}
+printf(" |");
+for(c = 0; c < s.size; c++){
+ printf("%d", c);
+ if((c + 1) % 3 == 0){
+  printf("|");
+ }
+}
+ printf("\n");
+
+printf("-+");
+for(c = 0; c < s.size; c++){
+ printf("-+");
+}
+}
