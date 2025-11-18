@@ -1,29 +1,43 @@
 // Este fichero se le da al alumno
 #include <stdio.h>
 #include "fichero.h"
-#include "math.h"
+#include <math.h>
 
 #define SIZE_NOMBRE_FICHERO	  80
 #define DIM 36
 
 typedef struct {
-char sudoku[DIM][DIM]
-int size;
-int ssize;
-int ocupadas;
-int libres;
-int totales;
-}tsudoku;
+ char sudoku[DIM][DIM];
+ int size;
+ int ssize;
+ int ocupadas;
+ int libres;
+ int totales;
+} tsudoku;
+
+
+tsudoku leer_sudoku();
+void linea_h (int size);
+char convertir_char (int i);
+void mostrar_sudoku(tsudoku s);
 
 int main() {
-	int err, f, c, size, car, num1;
-  tsudoku s;
+	tsudoku s;
+	
+	s = leer_sudoku();
+	mostrar_sudoku(s);
+}
+
+tsudoku leer_sudoku()
+{
+  int err, f, c, size, car, num1, i, j;
+        tsudoku s;
 	char nombre_fichero[SIZE_NOMBRE_FICHERO];
 
-s.ocupadas = 0;
-s.ssize = sqrt(s.size);
-s.libres = 0;
-num1 = 0;
+ s.ocupadas = 0;
+ 
+ s.libres = 0;
+ num1 = 0;
 
 	printf("Introduce el nombre del fichero: ");
 	scanf("%s%*c", nombre_fichero);
@@ -33,13 +47,14 @@ num1 = 0;
 		printf("PUEDE QUE EL NOMBRE NO SEA EL CORRECTO O QUE ESTE EN OTRO DIRECTORIO.\n");
 	} else {
 		s.size = leer_int_fichero();
+		s.ssize = sqrt(s.size);
 		leer_char_fichero(); // '\n'
 
-		printf("Sudoku %dx%d\n\n", s.size, s.size);
+		//printf("Sudoku %dx%d\n\n", s.size, s.size);
 		for (f = 0; f < s.size; f++) {
 			for (c = 0; c < s.size; c++) {
 				car = leer_char_fichero();
-				printf("%c ", car);
+				//printf("%c ", car);
 			}
       if (car >= '1' && car <= s.size) {
         s.ocupadas++;
@@ -52,51 +67,59 @@ num1 = 0;
   s.totales = s.size * s.size;
 		cerrar_fichero();
 	}
-  printf(" |");
+	
+ return s;
+}
+void mostrar_sudoku(tsudoku s)
+{
+  int f,c, aux;
+ printf(" ");
   for(c = 0; c < s.size; c++){
-    if(c % s.ssize == 0){
-      printf("|");
-    }else{
-      printf(" ");
-    }
-  printf("|");
-  printf("%d", c);
+    aux = c % (s.ssize);
+    if( aux== 0){
+      printf("|%d ",c);
+    }else if((aux + 1) % 3 == 0){
+      printf("%d", c);
+    } else 
+      printf("%d ", c);
   }
-  printf("\n");
+  printf("|\n");
 
-  linea_h (int ssize)
- for(i = 0; i < s.size; i ++); {
-  if(i % s.ssize == 0){
-   linea_h (s.ssize);
+ /*linea_h (s.size);*/
+  for(f = 0; f < s.size; f++) {
+  if(f % (s.ssize) == 0){
+   linea_h (s.size);
   }
-  printf("%c", car);
-  for(j = 0; j < s.size; j++){
-   if(j % s.ssize == 0){
+  }
+  /*
+  for(c = 0; c < s.size; c++){
+   if(c % (s.ssize) == 0){
     printf("|");
    }else{
      printf(" ");
    }
-   printf("%c, s.sudoku[i][j]);
+   printf("%c", s.sudoku[f][c]); 
   }
-  printf("\nª);
+  printf("\n");
+} */
+
 }
-}
-void linea_h (int ssize) {
- int i, j;
-   printf("-");
-   for(i = 0; i < s.size; i++){
-     for(j = 0; j < s.size; j = j + 2){
+void linea_h (int size) {
+ int f,c;
+   for(f = 0; f < size; f++){ 
+    printf("-");
+     for(c = 0; c < (size * 2); c = c +2){
        printf("+-");
      }
-    }
-     printf("+\n");
-   }
+     printf("+\n"); 
+  }
+}   
 char convertir_char (int i) {
- char 0;
+ char c;
  if (i < 10){
   c = i + '0';
  }else{
-  c = i + '87';
+  c = i + 87;
  } 
  return c;
 }
