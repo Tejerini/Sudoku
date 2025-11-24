@@ -62,8 +62,8 @@ tsudoku leer_sudoku()
         s.libres++;
       }
 			leer_char_fichero(); // '\n'
-			printf("\n");
 		}
+  printf("\n");
   s.totales = s.size * s.size;
 		cerrar_fichero();
 	}
