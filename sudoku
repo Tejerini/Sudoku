@@ -18,6 +18,7 @@ typedef struct {
 
 tsudoku leer_sudoku();
 void linea_h (int size);
+void linea_vacia (tsudoku s, int fila);
 char convertir_char (int i);
 void mostrar_sudoku(tsudoku s);
 
@@ -72,7 +73,7 @@ tsudoku leer_sudoku()
 }
 void mostrar_sudoku(tsudoku s)
 {
-  int f,c, aux;
+  int f,c, aux, k;
  printf(" ");
   for(c = 0; c < s.size; c++){
     aux = c % (s.ssize);
@@ -85,12 +86,15 @@ void mostrar_sudoku(tsudoku s)
   }
   printf("|\n");
 
- /*linea_h (s.size);*/
   for(f = 0; f < s.size; f++) {
   if(f % (s.ssize) == 0){
-   linea_h (s.size);
+    linea_h (s.size);
+    for(k = 0; k < s.ssize; k++){
+   linea_vacia (s, f + k);
   }
   }
+  }
+  linea_h (s.size);
   /*
   for(c = 0; c < s.size; c++){
    if(c % (s.ssize) == 0){
@@ -105,15 +109,23 @@ void mostrar_sudoku(tsudoku s)
 
 }
 void linea_h (int size) {
- int f,c;
-   for(f = 0; f < size; f++){ 
+ int f,c; 
     printf("-");
      for(c = 0; c < (size * 2); c = c +2){
        printf("+-");
      }
      printf("+\n"); 
-  }
-}   
+  }   
+void linea_vacia (tsudoku s, int fila){
+int c;
+printf("%d|", fila + 1); 
+for (c = 0; c < s.size*2; c++){
+ if (c % (s.ssize*2) == 0){
+    printf("     |");   
+ }
+}
+printf("\n");
+}
 char convertir_char (int i) {
  char c;
  if (i < 10){
