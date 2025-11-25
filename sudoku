@@ -23,15 +23,21 @@ void linea_vacia (tsudoku s, int fila);
 void mostrar_sudoku(tsudoku s);
 
 int main() {
-	tsudoku s;
-	
+	tsudoku s, caracter;
+	/*int t, f, c;*/
 	s = leer_sudoku();
 	mostrar_sudoku(s);
+	 /* for(t = 0; t <= s.libres; t++){
+     printf("Intro [fila col car] sin espacios: ");
+     scanf("(%d %d %c)%*c", &f, &c, &s.sudoku); 
+     mostrar_sudoku (s);
+   }*/
 }
 
 tsudoku leer_sudoku()
 {
   int err, f, c, size, car, num1, i, j;
+ 
         tsudoku s;
 	char nombre_fichero[SIZE_NOMBRE_FICHERO];
 
@@ -70,7 +76,14 @@ tsudoku leer_sudoku()
 		cerrar_fichero();
 	}
 	
- return s;
+  /*mostrar_sudoku (s);	
+ 
+  for(t = 0; t <= s.libres; t++){
+     printf("Intro [fila col car] sin espacios: ");
+     scanf("(%d %d %c)%*c", &f, &c, &caracter.sudoku); 
+     mostrar_sudoku (caracter);
+   }*/
+  return s;
 }
 
 void mostrar_sudoku(tsudoku s)
