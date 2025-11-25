@@ -55,7 +55,8 @@ tsudoku leer_sudoku()
 		for (f = 0; f < s.size; f++) {
 			for (c = 0; c < s.size; c++) {
 				car = leer_char_fichero();
-				//printf("%c ", car);
+				s.sudoku[f][c] = car;
+			
 			}
       if (car >= '1' && car <= s.size) {
         s.ocupadas++;
@@ -71,6 +72,7 @@ tsudoku leer_sudoku()
 	
  return s;
 }
+
 void mostrar_sudoku(tsudoku s)
 {
   int f,c, aux, k;
@@ -119,7 +121,11 @@ void linea_vacia (tsudoku s, int fila){
 int c;
     printf("%c|", convertir_char(fila));
     for (c = 0; c < s.size; c++) {
-        printf(" ");
+     if(s.sudoku[fila][c] == ' '){
+     printf(" ");
+     }else{
+        printf("%c", s.sudoku[fila][c]);
+        }
         if ((c + 1) % s.ssize == 0) {
             printf("|");
         } else {
