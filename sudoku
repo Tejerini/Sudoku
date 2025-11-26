@@ -108,7 +108,7 @@ for (c = 0; c < s.size; c++) {
 printf("\n");
 
   for(f = 0; f < s.size; f++) {
-  if(f % (s.ssize) == 0){
+  if(f % (s.ssize) == 0)
     linea_h (s.size);
         printf("%c|", convertir_char(f));
         for(c = 0; c < s.size; c++) {
@@ -119,9 +119,10 @@ printf("\n");
                 printf(" ");
         }
         printf("\n");
-    }
-    linea_h(s.size);
+        }
+   linea_h(s.size);
 }
+
 void linea_h (int size) {
  int f,c; 
     printf("-");
@@ -157,32 +158,5 @@ char convertir_char (int i) {
  } 
  return c;
 }
-/*void insertar_numero(tsudoku *s) {
-    int fila, col;
-    char valor;
-
-    printf("Introduce fila (0-%d), columna (0-%d) y número (1-%d o espacio para borrar) sin espacios: ",
-           s->size - 1, s->size - 1, s->size);
-
-    scanf("%d%d %c%*c", &fila, &col, &valor);
-
-    if (fila < 0 || fila >= s->size || col < 0 || col >= s->size) {
-        printf("Posición fuera de rango.\n");
-        return;
-    }
-
-    char anterior = s->sudoku[fila][col];
-
-    // Actualizar conteo de casillas
-    if (anterior >= '1' && anterior <= '0' + s->size) s->ocupadas--;
-    if (anterior == ' ') s->libres--;
-
-    // Insertar nuevo valor
-    s->sudoku[fila][col] = valor;
-
-    if (valor >= '1' && valor <= '0' + s->size) s->ocupadas++;
-    if (valor == ' ') s->libres++;
-
- */
 
 
