@@ -21,17 +21,17 @@ void linea_h (int size);
 char convertir_char (int i);
 void linea_vacia (tsudoku s, int fila);
 void mostrar_sudoku(tsudoku s);
+void insertar_y_mostrar (tsudoku *c);
 
 int main() {
+ int i;
 	tsudoku s, caracter;
-	/*int t, f, c;*/
 	s = leer_sudoku();
 	mostrar_sudoku(s);
-	 /* for(t = 0; t <= s.libres; t++){
-     printf("Intro [fila col car] sin espacios: ");
-     scanf("(%d %d %c)%*c", &f, &c, &s.sudoku); 
-     mostrar_sudoku (s);
-   }*/
+	for (i = 0; i < s.libres; i++) {
+    insertar_y_mostrar(&s);
+}
+
 }
 
 tsudoku leer_sudoku()
@@ -85,6 +85,16 @@ tsudoku leer_sudoku()
    }*/
   return s;
 }
+void insertar_y_mostrar(tsudoku *s) {
+    int fila, col;
+    char valor;
+    printf("Intro [fila col car] sin espacios: ");
+    scanf("%1d%1d%c%*c", &fila, &col, &valor);
+
+    (*s).sudoku[fila][col] = valor;
+    mostrar_sudoku(*s);
+}
+
 
 void mostrar_sudoku(tsudoku s)
 {
