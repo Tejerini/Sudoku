@@ -28,7 +28,7 @@ int main() {
 	tsudoku s, caracter;
 	s = leer_sudoku();
 	mostrar_sudoku(s);
-	for (i = 0; i < s.libres; i++) {
+	while (s.libres > 0) {
     insertar_y_mostrar(&s);
 }
 
@@ -64,7 +64,7 @@ tsudoku leer_sudoku()
 				s.sudoku[f][c] = car;
 			
 			}
-      if (car >= '1' && car <= s.size) {
+      if (car >= '1' && car <= '0' + s.size) {
         s.ocupadas++;
       } else if (car == ' ') {
         s.libres++;
@@ -75,14 +75,6 @@ tsudoku leer_sudoku()
   s.totales = s.size * s.size;
 		cerrar_fichero();
 	}
-	
-  /*mostrar_sudoku (s);	
- 
-  for(t = 0; t <= s.libres; t++){
-     printf("Intro [fila col car] sin espacios: ");
-     scanf("(%d %d %c)%*c", &f, &c, &caracter.sudoku); 
-     mostrar_sudoku (caracter);
-   }*/
   return s;
 }
 void insertar_y_mostrar(tsudoku *s) {
@@ -90,6 +82,11 @@ void insertar_y_mostrar(tsudoku *s) {
     char valor;
     printf("Intro [fila col car] sin espacios: ");
     scanf("%1d%1d%c%*c", &fila, &col, &valor);
+    
+     if ((*s).sudoku[fila][col] == ' ') {
+      (*s).libres = (*s).libres - 1;
+      (*s).ocupadas = (*s).ocupadas + 1;;
+    }
 
     (*s).sudoku[fila][col] = valor;
     mostrar_sudoku(*s);
@@ -98,7 +95,7 @@ void insertar_y_mostrar(tsudoku *s) {
 
 void mostrar_sudoku(tsudoku s)
 {
-  int f,c, aux, k;
+  int f,c;
   printf(" |");
 for (c = 0; c < s.size; c++) {
     printf("%c", convertir_char(c));
@@ -113,24 +110,17 @@ printf("\n");
   for(f = 0; f < s.size; f++) {
   if(f % (s.ssize) == 0){
     linea_h (s.size);
-    for(k = 0; k < s.ssize; k++){
-   linea_vacia (s, f + k);
-  }
-  }
-  }
-  linea_h (s.size);
- /* 
-  for(c = 0; c < s.size; c++){
-   if(c % (s.ssize) == 0){
-    printf("|");
-   }else{
-     printf(" ");
-   }
-   printf("%c", s.sudoku[f][c]); 
-  }
-  printf("\n");
-} 
-*/
+        printf("%c|", convertir_char(f));
+        for(c = 0; c < s.size; c++) {
+            printf("%c", s.sudoku[f][c]);
+            if((c+1) % s.ssize == 0)
+                printf("|");
+            else
+                printf(" ");
+        }
+        printf("\n");
+    }
+    linea_h(s.size);
 }
 void linea_h (int size) {
  int f,c; 
