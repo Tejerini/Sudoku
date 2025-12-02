@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "fichero.h"
 #include <math.h>
+#include "colores.h"
 
 #define SIZE_NOMBRE_FICHERO	  80
 #define DIM 36
@@ -21,12 +22,14 @@ void linea_h (int size);
 char convertir_char (int i);
 void linea_vacia (tsudoku s, int fila);
 void mostrar_sudoku(tsudoku s);
+int convertir_int(char i);
 void insertar_y_mostrar (tsudoku *c);
 
 int main() {
  int i;
 	tsudoku s, caracter;
 	s = leer_sudoku();
+	/*void printf_color_negrita(mostrar_sudoku(s));*/
 	mostrar_sudoku(s);
 	while (s.libres > 0) {
     insertar_y_mostrar(&s);
@@ -79,20 +82,31 @@ tsudoku leer_sudoku()
   return s;
 }
 void insertar_y_mostrar(tsudoku *s) {
-    int fila, col;
-    char valor;
-    printf("Intro [fila col car] sin espacios: ");
-    scanf("%1d%1d%c%*c", &fila, &col, &valor);
+    int filan, coln, valorn;
+    char fila, col, valor;
     
-     if ((*s).sudoku[fila][col] == ' ') {
-      (*s).libres = (*s).libres - 1;
-      (*s).ocupadas = (*s).ocupadas + 1;;
-    }
+    do{
+    printf("Intro [fila col car] sin espacios: ");
+    scanf("%c%c%c%*c", &fila, &col, &valor);
 
-    (*s).sudoku[fila][col] = valor;
+    filan = convertir_int(fila);
+    coln = convertir_int(col);
+    valorn = convertir_int(valor);
+    /*printf("fila=%c\t col=%c\t valor=%c\n", fila, col, valor);
+    printf("filan=%d\t coln=%d\t valorn=%d\n", filan, coln, valorn);*/
+    }while(filan>=(*s).size || coln>=(*s).size || valorn>(*s).size);
+
+  
+     if ((*s).sudoku[filan][coln] == ' ') {
+      (*s).libres = (*s).libres - 1;
+      (*s).ocupadas = (*s).ocupadas + 1;
+    }
+ if((*s).sudoku[filan][coln] == ' '){
+    (*s).sudoku[filan][coln] = valor;
+    /*mostrar_sudoku(*s);*/
+}
     mostrar_sudoku(*s);
 }
-
 
 void mostrar_sudoku(tsudoku s)
 {
@@ -159,5 +173,18 @@ char convertir_char (int i) {
  } 
  return c;
 }
+
+int convertir_int (char i) {
+ int c;
+ if (i >='0' && i<='9'){
+  c = i-'0';
+ }else if(i>='a' && i<='z'){
+  c = i-'a';
+ } 
+ else
+   c = i-'A';
+ return c;
+}
+
 
 
