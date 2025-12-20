@@ -22,6 +22,7 @@ void linea_h (int size);
 char convertir_char (int i);
 void linea_vacia (tsudoku s, int fila);
 void mostrar_sudoku(tsudoku s);
+int comprobar_sudoku(tsudoku s);
 int convertir_int(char i);
 void insertar_y_mostrar (tsudoku *c);
 
@@ -132,7 +133,7 @@ printf("\n");
         printf("%c|", convertir_char(f));
         for(c = 0; c < s.size; c++) {
             printf("%c", s.sudoku[f][c]);
-            if((c+1) % s.ssize == 0)
+            if((c + 1) % s.ssize == 0)
                 printf("|");
             else
                 printf(" ");
