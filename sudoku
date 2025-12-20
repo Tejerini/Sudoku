@@ -36,9 +36,9 @@ int main() {
      insertar_y_mostrar(&s);
 }
     if (comprobar_sudoku(s)) {
-     printf("El sudoku está bien.\n");
+     printf("El sudoku es correcto.\n");
     } else {
-      printf("El sudoku está mal.\n");
+      printf("El sudoku es incorrecto.\n");
     }
 }
 
@@ -170,59 +170,65 @@ int c;
 }
 
 int comprobar_sudoku(tsudoku s){
- int marcas[s.size];    
- int f, c, i, j;             
- int index;             
- 
- for(f = 0; f < s.size; f++){
-     for(c = 0; c < s.size; c++){
-         marcas[c] = 0;
-     }
-     for(c= 0; c < s.size; c++){
-        index = convertir_int(s.sudoku[f][c]);
-        
-        if(marcas[index] == 1){
-            return 0;
-        } else {
-            marcas[index] = 1;
+    int marcas[36];
+    int f, c, i, j;
+    int index;
+
+    for(f = 0; f < s.size; f++){
+        for(c = 0; c < 36; c++){
+            marcas[c] = 0;
         }
-     }
- }
-  for(c = 0; c < s.size; c++){
-     for(f = 0; f < s.size; f++){
-         marcas[f] = 0;
-     }
-     for(f= 0; f < s.size; f++){
-        index = convertir_int(s.sudoku[f][c]);
-        
-        if(marcas[index] == 1){
-            return 0;
-        } else {
-            marcas[index] = 1;
-        }
-     }
- }
- for(i = 0; i < s.size; i = i + s.ssize){
-     for(j = 0; j < s.size; j = j + s.ssize){
-         for(f = 0; f < s.size; f++){
-             marcas[f] = 0;
-         }
-  for(f = i; f < i + s.ssize; f++) {
-            for(c = j; c < j + s.ssize; c++) {
-                
+        for(c = 0; c < s.size; c++){
+            if(s.sudoku[f][c] != ' '){
                 index = convertir_int(s.sudoku[f][c]);
-                
-                if(marcas[index] == 1) {
+                if(marcas[index] == 1){
                     return 0;
                 } else {
                     marcas[index] = 1;
                 }
-            }                                   
-     }
- }
+            }
+        }
+    }
+
+    for(c = 0; c < s.size; c++){
+        for(f = 0; f < 36; f++){
+            marcas[f] = 0;
+        }
+        for(f = 0; f < s.size; f++){
+            if(s.sudoku[f][c] != ' '){
+                index = convertir_int(s.sudoku[f][c]);
+                if(marcas[index] == 1){
+                    return 0;
+                } else {
+                    marcas[index] = 1;
+                }
+            }
+        }
+    }
+
+    for(i = 0; i < s.size; i = i + s.ssize){
+        for(j = 0; j < s.size; j = j + s.ssize){
+            for(f = 0; f < 36; f++){
+                marcas[f] = 0;
+            }
+            for(f = i; f < i + s.ssize; f++){
+                for(c = j; c < j + s.ssize; c++){
+                    if(s.sudoku[f][c] != ' '){
+                        index = convertir_int(s.sudoku[f][c]);
+                        if(marcas[index] == 1){
+                            return 0;
+                        } else {
+                            marcas[index] = 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return 1;
 }
-return 1;
-}
+
 
 char convertir_char (int i) {
  char c;
